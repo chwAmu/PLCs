@@ -1,0 +1,55 @@
+﻿Function_Block "fb_PulseUpDetectWithDelay"
+
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+Var_Input
+  in : Bool;
+  iTime : Time;
+End_Var
+
+Var_Output
+  Q : Bool;
+End_Var
+
+Var_In_out
+
+End_Var
+
+Var
+  _memo : Bool;
+  TON{ S7_SETPOINT := 'True'; InstructionName := 'IEC_TIMER'; LibVersion := '1.0' } : TON_TIME;
+End_Var
+
+Var_Temp
+
+End_Var
+
+Var Constant
+
+End_Var
+
+
+
+
+BEGIN
+	
+	
+	#Q := False;
+	
+	
+	IF #in AND NOT #_memo AND #TON.Q THEN
+	    #Q := True;
+	    #_memo := True;
+	    
+	END_IF;
+	
+	IF NOT #in THEN
+	    #_memo := false;
+	END_IF;
+	
+	
+	#TON(IN := #in,
+	     PT := #iTime);
+	
+END_FUNCTION_BLOCK
+

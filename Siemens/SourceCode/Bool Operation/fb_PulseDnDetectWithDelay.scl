@@ -1,0 +1,55 @@
+﻿FUNCTION_BLOCK "fb_PulseDnDetectWithDelay"
+
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+VAR_INPUT
+  in : Bool;
+  iTime : Time;
+END_VAR
+
+VAR_OUTPUT
+  Q : Bool;
+END_VAR
+
+VAR_IN_OUT
+
+END_VAR
+
+VAR
+  _memo : Bool;
+  TON{ S7_SETPOINT := 'True'; InstructionName := 'IEC_TIMER'; LibVersion := '1.0' } : TON_TIME;
+END_VAR
+
+VAR_TEMP
+
+END_VAR
+
+VAR CONSTANT
+
+END_VAR
+
+
+
+
+BEGIN
+	
+	
+	#Q := False;
+	
+	
+	IF NOT #in AND NOT #_memo AND #TON.Q THEN
+	    #Q := True;
+	    #_memo := True;
+	    
+	END_IF;
+	
+	IF #in THEN
+	    #_memo := false;
+	END_IF;
+	
+	
+	#TON(IN := NOT #in,
+	     PT := #iTime);
+	
+END_FUNCTION_BLOCK
+

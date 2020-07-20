@@ -1,0 +1,46 @@
+﻿Function_Block "fb_PulseDnDetect"
+
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+Var_Input
+  in : Bool;
+End_Var
+
+Var_Output
+  Q : Bool;
+End_Var
+
+Var_In_out
+
+End_Var
+
+Var
+  _memo : Bool;
+End_Var
+
+Var_Temp
+
+End_Var
+
+Var Constant
+
+End_Var
+
+
+
+
+BEGIN
+	
+	#Q := False;
+	
+	IF NOT #in AND NOT #_memo THEN
+	    #Q := True;
+	    #_memo := True;
+	END_IF;
+	
+	IF #in THEN
+	    #_memo := false;
+	END_IF;
+	
+END_FUNCTION_BLOCK
+
